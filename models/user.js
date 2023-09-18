@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+
 const userSchema = new Schema (
     {
         username: {
@@ -16,11 +17,11 @@ const userSchema = new Schema (
         },
         thoughts: [{
             type: mongoose.Schema.Types.ObjectId, 
-            ref: 'Thought', 
+            ref: 'thought', 
           }],    
         friends: [{
             type: mongoose.Schema.Types.ObjectId, 
-            ref: 'User',
+            ref: 'user',
         }],
         });
 
@@ -28,6 +29,6 @@ const userSchema = new Schema (
             return this.friends.length;
           });
           
-          const User = mongoose.model('User', userSchema);
+          const User = mongoose.model('user', userSchema);
           
-          module.exports = User;
+          module.exports = user;

@@ -21,7 +21,7 @@ const thoughtSchema = new Schema(
         reactions: [
             {
               type: mongoose.Schema.Types.ObjectId,
-              ref: 'reaction',
+              ref: 'Reaction',
             },
           ],
     }

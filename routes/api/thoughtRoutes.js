@@ -9,10 +9,6 @@ router.post('/', thoughtController.createThought);
 router.put('/:thoughtId', thoughtController.updateThought);
 router.delete('/:thoughtId', thoughtController.deleteThought);
 
-// Include routes for handling reactions within the thought routes
-router.post('/:thoughtId/reactions', thoughtController.createReaction);
-router.delete('/:thoughtId/reactions/:reactionId', thoughtController.removeReaction);
-
 // Create a reaction for a thought
 router.post('/:thoughtId/reactions', thoughtController.createReaction);
 

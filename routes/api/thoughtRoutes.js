@@ -4,6 +4,7 @@ const router = express.Router();
 const thoughtController = require('../controllers/thoughtController');
 
 router.get('/', thoughtController.getAllThoughts);
+
 router.get('/:thoughtId', thoughtController.getSingleThought);
 router.post('/', thoughtController.createThought);
 router.put('/:thoughtId', thoughtController.updateThought);

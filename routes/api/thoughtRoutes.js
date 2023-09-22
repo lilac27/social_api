@@ -11,7 +11,7 @@ router.put('/:thoughtId', thoughtController.updateThought);
 router.delete('/:thoughtId', thoughtController.deleteThought);
 
 // Create a reaction for a thought
-router.post('/:thoughtId/reactions', thoughtController.createReaction);
+router.post('/:thoughtId/reactions', thoughtController.addReaction);
 
 // Remove a reaction from a thought
 router.delete('/:thoughtId/reactions/:reactionId', thoughtController.removeReaction);

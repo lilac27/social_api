@@ -6,7 +6,7 @@ module.exports = {
     async getThoughts(req, res) {
         try {
             const thoughts = await Thought.find();
-            res.json(thoughts);
+            res.json(thoughts)
         } catch (err) {
             console.log(err);
             return res.status(500).json(err);
@@ -67,57 +67,41 @@ module.exports = {
         }
       },
 
-  createReaction(req, res) {
-    const { thoughtId } = req.params;
-    const { reactionText } = req.body;
 
-    // Find the thought by its ID
-    Thought.findById(thoughtId)
-      .then((thought) => {
-        if (!thought) {
-          return res.status(404).json({ message: 'Thought not found' });
+
+      async addReaction(req, res) {
+        try {
+          const thought = await Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $addToSet: { reactions: reactionText } },
+            { runValidators: true, new: true }
+          );
+    
+          if (!thought) {
+            return res.status(404).json({ message: 'No thought with this id!' });
+          }
+    
+          res.json(thought);
+        } catch (err) {
+          res.status(500).json(err);
         }
+      },
 
-        // Create the reaction and add it to the thought's reactions array
-        thought.reactions.push({ reactionText });
-        return thought.save();
-      })
-      .then((thoughtWithReaction) => {
-        res.status(201).json(thoughtWithReaction);
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).json({ message: 'Error creating reaction' });
-      });
-  },
-
-  removeReaction(req, res) {
-    const { thoughtId, reactionId } = req.params;
-
-    // Find the thought by its ID
-    Thought.findById(thoughtId)
-      .then((thought) => {
-        if (!thought) {
-          return res.status(404).json({ message: 'Thought not found' });
+      async removeReaction(req, res) {
+        try {
+          const thought = await Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $pull: { reactions: { reactionId: req.params.reactionId } } },
+            { runValidators: true, new: true }
+          );
+    
+          if (!thought) {
+            return res.status(404).json({ message: 'No thought with this id!' });
+          }
+    
+          res.json(thought);
+        } catch (err) {
+          res.status(500).json(err);
         }
-
-        // Find and remove the reaction by its ID
-        const reactionIndex = thought.reactions.findIndex(
-          (reaction) => reaction._id == reactionId
-        );
-        if (reactionIndex === -1) {
-          return res.status(404).json({ message: 'Reaction not found' });
-        }
-
-        thought.reactions.splice(reactionIndex, 1);
-        return thought.save();
-      })
-      .then((thoughtWithUpdatedReactions) => {
-        res.status(200).json(thoughtWithUpdatedReactions);
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).json({ message: 'Error removing reaction' });
-      });
-  },
-};
+      },
+    };

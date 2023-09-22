@@ -1,9 +1,9 @@
 // routes/thoughtRoutes.js
 const express = require('express');
 const router = express.Router();
-const thoughtController = require('../controllers/thoughtController');
+const thoughtController = require('../../controllers/thoughtController');
 
-router.get('/', thoughtController.getAllThoughts);
+router.get('/', thoughtController.getThoughts);
 
 router.get('/:thoughtId', thoughtController.getSingleThought);
 router.post('/', thoughtController.createThought);

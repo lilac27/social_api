@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Schema, model } = require('mongoose');
+const { Schema, Types } = require('mongoose');
 
 const reactionSchema = new mongoose.Schema({
   reactionId: {
@@ -26,7 +26,5 @@ reactionSchema.virtual('formattedCreatedAt').get(function () {
   return this.createdAt.toLocaleString(); 
 });
 
-const Reaction =model('Reaction', reactionSchema);
 
-
-module.exports = Reaction;
+module.exports = reactionSchema;

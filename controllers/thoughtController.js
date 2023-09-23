@@ -1,5 +1,6 @@
 const { ObjectId } = require('mongoose').Types;
 const { Reaction, Thought, User } = require('../models');
+const reactionSchema = require('../')
 
 module.exports = {
     //get all thoughts
@@ -73,7 +74,7 @@ module.exports = {
         try {
           const thought = await Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
-            { $addToSet: { reactions: reactionText } },
+            { $addToSet: { reactions: req.body } },
             { runValidators: true, new: true }
           );
     

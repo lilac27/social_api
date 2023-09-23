@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const reactionSchema = new mongoose.Schema({
   reactionId: {
-    type: mongoose.Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    type: Schema.Types.ObjectId,
+    default: () => new Types.ObjectId()
   },
   reactionText: {
     type: String,
@@ -24,5 +25,6 @@ const reactionSchema = new mongoose.Schema({
 reactionSchema.virtual('formattedCreatedAt').get(function () {
   return this.createdAt.toLocaleString(); 
 });
+
 
 module.exports = reactionSchema;

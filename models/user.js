@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema, model } = require('mongoose');
+const { model: Thought } = require('./Thought');
 
 
 const userSchema = new Schema (
@@ -17,12 +18,12 @@ const userSchema = new Schema (
             match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ 
         },
         thoughts: [{
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: 'thought', 
+            type: Schema.Types.ObjectId, 
+            ref: 'Thought', 
           }],    
         friends: [{
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: 'user',
+            type: Schema.Types.ObjectId, 
+            ref: 'User',
         }],
         });
 
